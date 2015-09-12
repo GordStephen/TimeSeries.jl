@@ -1,6 +1,6 @@
 ###### type definition ##########
 
-import Base: convert, length, show, getindex, start, next, done, isempty
+import Base: convert, length, show, getindex, start, next, done, isempty, endof
 
 abstract AbstractTimeSeries
 
@@ -212,9 +212,10 @@ function getindex{T,N}(ta::TimeArray{T,N}, r::Union(StepRange{Date}, StepRange{D
     ta[collect(r)]
 end
 
-function getindex{T,N}(ta::TimeArray{T,N}, k::TimeArray{Bool,1})
-  ta[k.timestamp[find(k.values)]]
-end #getindex
+getindex{T,N}(ta::TimeArray{T,N}, k::TimeArray{Bool,1}) = ta[k.timestamp[find(k.values)]]
 
 # day of week
 # getindex{T,N}(ta::TimeArray{T,N}, d::DAYOFWEEK) = ta[dayofweek(ta.timestamp) .== d]
+
+# Define end keyword
+endof(ta::TimeArray) = length(ta.timestamp)

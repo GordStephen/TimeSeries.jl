@@ -8,8 +8,13 @@ facts("find methods") do
   end
 
   context("findwhen returns correct Dates array") do
-      @fact findwhen(cl .> op)[1]      --> Date(2000,1,3)
-      @fact length(findwhen(cl .> op)) --> 244 
+<<<<<<< 91d5e93225ceea949f19ca98ad11fb3f63a56d07
+#     @fact findwhen(cl .> op)[1]      --> Date(2000,1,3)
+#     @fact length(findwhen(cl .> op)) --> 244 
+=======
+     @fact findwhen(cl .> op)[2]      => Date(2000,1,5)
+     @fact length(findwhen(cl .> op)) => 244
+>>>>>>> Added tests
   end
 end
 
