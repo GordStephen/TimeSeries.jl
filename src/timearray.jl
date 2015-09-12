@@ -188,22 +188,33 @@ function getindex{T,N}(ta::TimeArray{T,N}, d::Union(Date, DateTime))
     end
 end
  
-# range of dates
+# multiple dates
 function getindex{T,N}(ta::TimeArray{T,N}, dates::Union(Vector{Date}, Vector{DateTime}))
-    counter = Int[]
-  #  counter = int(zeros(length(dates)))
-    for i in 1:length(dates)
-        if findfirst(ta.timestamp, dates[i]) != 0
-        #counter[i] = findfirst(ta.timestamp, dates[i])
-            push!(counter, findfirst(ta.timestamp, dates[i]))
-        end
+<<<<<<< 631bfa96ccc1bc91618874808579d7db75122a06
+  counter = Int[]
+#  counter = int(zeros(length(dates)))
+  for i in 1:length(dates)
+    if findfirst(ta.timestamp, dates[i]) != 0
+      #counter[i] = findfirst(ta.timestamp, dates[i])
+      push!(counter, findfirst(ta.timestamp, dates[i]))
     end
-    ta[counter]
+  end
+  ta[counter]
 end
+=======
+    dates = sort(dates)
+    counter, _ = overlaps(ta.timestamp, dates)
+    ta[counter]
+end #getindex
+>>>>>>> Speed up date indexing and implement TimeArray{Bool} indexing
 
 function getindex{T,N}(ta::TimeArray{T,N}, r::Union(StepRange{Date}, StepRange{DateTime})) 
-    ta[[r;]]
+    ta[collect(r)]
 end
+
+function getindex{T,N}(ta::TimeArray{T,N}, k::TimeArray{Bool,1})
+  ta[k.timestamp[find(k.values)]]
+end #getindex
 
 # day of week
 # getindex{T,N}(ta::TimeArray{T,N}, d::DAYOFWEEK) = ta[dayofweek(ta.timestamp) .== d]
