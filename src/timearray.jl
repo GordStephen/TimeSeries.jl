@@ -190,23 +190,10 @@ end
  
 # multiple dates
 function getindex{T,N}(ta::TimeArray{T,N}, dates::Union(Vector{Date}, Vector{DateTime}))
-<<<<<<< 631bfa96ccc1bc91618874808579d7db75122a06
-  counter = Int[]
-#  counter = int(zeros(length(dates)))
-  for i in 1:length(dates)
-    if findfirst(ta.timestamp, dates[i]) != 0
-      #counter[i] = findfirst(ta.timestamp, dates[i])
-      push!(counter, findfirst(ta.timestamp, dates[i]))
-    end
-  end
-  ta[counter]
-end
-=======
     dates = sort(dates)
     counter, _ = overlaps(ta.timestamp, dates)
     ta[counter]
 end #getindex
->>>>>>> Speed up date indexing and implement TimeArray{Bool} indexing
 
 function getindex{T,N}(ta::TimeArray{T,N}, r::Union(StepRange{Date}, StepRange{DateTime})) 
     ta[collect(r)]
