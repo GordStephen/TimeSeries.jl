@@ -199,7 +199,7 @@ function getindex{T,N}(ta::TimeArray{T,N}, r::Union(StepRange{Date}, StepRange{D
     ta[collect(r)]
 end
 
-getindex{T,N}(ta::TimeArray{T,N}, k::TimeArray{Bool,1}) = ta[k.timestamp[find(k.values)]]
+getindex{T,N}(ta::TimeArray{T,N}, k::TimeArray{Bool,1}) = ta[findwhen(k)]
 
 # day of week
 # getindex{T,N}(ta::TimeArray{T,N}, d::DAYOFWEEK) = ta[dayofweek(ta.timestamp) .== d]
